@@ -11,7 +11,7 @@
     谁调用谁传入
 */
 
-export default function (url, data, method){
+export default function (url, data={}, method="GET"){
   return new Promise(function (resolve, reject) {
     wx.request({
       url,

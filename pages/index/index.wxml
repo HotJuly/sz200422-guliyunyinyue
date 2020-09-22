@@ -40,33 +40,9 @@
       </view>
     </view>
     <scroll-view class="recommendScroll" enable-flex scroll-x>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      <view class="recommendItem" wx:for="{{recommendList}}" wx:key="id">
+        <image src="{{item.picUrl}}"></image>
+        <text>{{item.name}}</text>
       </view>
     </scroll-view>
   </view>

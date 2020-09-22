@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-      bannerList:[]
+      bannerList:[],
+      recommendList:[]
   },
 
   /**
@@ -33,11 +34,27 @@ Page({
     //     })
     //   }
     // })
-    let result = await request("http://localhost:3000/banner",{type:2},"GET");
-    console.log('result',result)
-    this.setData({
-      bannerList:result.banners
+    // let result = await request("http://localhost:3000/banner",{type:2},"GET");
+    // let recommendData = await request("http://localhost:3000/personalized");
+    // console.log(recommendData.result)
+    // // console.log('result',result)
+    // this.setData({
+    //   bannerList:result.banners,
+    //   recommendList: recommendData.result
+    // })
+    request("http://localhost:3000/banner", { type: 2 }, "GET")
+    .then((res)=>{
+      this.setData({
+        bannerList: res.banners
+      })
     })
+
+    request("http://localhost:3000/personalized")
+      .then((res) => {
+        this.setData({
+          recommendList: res.result
+        })
+      })
   },
 
   /**

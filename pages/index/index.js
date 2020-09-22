@@ -43,11 +43,11 @@ Page({
     //   recommendList: recommendData.result
     // })
     request("http://localhost:3000/banner", { type: 2 }, "GET")
-    .then((res)=>{
-      this.setData({
-        bannerList: res.banners
+      .then((res)=>{
+        this.setData({
+          bannerList: res.banners
+        })
       })
-    })
 
     request("http://localhost:3000/personalized")
       .then((res) => {

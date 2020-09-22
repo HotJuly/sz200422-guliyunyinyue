@@ -34,31 +34,6 @@
   padding:0 20rpx;
 }
 
-.header{
-  padding-top:40rpx;
-}
-
-.header .title{
-  color:#666;
-  font-size:28rpx;
-}
-
-.header text{
-  font-size:30rpx;
-}
-
-.header .content{
-  display:flex;
-  justify-content: space-between;
-}
-
-.header .content .more{
-  font-size:20rpx;
-  border:1rpx solid;
-  border-radius: 10rpx;
-  padding:10rpx 20rpx;
-}
-
 .recommendContainer .recommendScroll{
   display:flex;
   padding-top:20rpx;

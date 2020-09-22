@@ -38,4 +38,45 @@
       <text>每日推荐</text>
     </view>
   </view>
+
+  <!-- 推荐歌曲区域 -->
+  <view class="recommendContainer">
+    <view class="header">
+      <text class="title">推荐歌曲</text>
+      <view class="content">
+        <text>为你精心推荐</text>
+        <text class="more">查看更多</text>
+      </view>
+    </view>
+    <scroll-view class="recommendScroll" enable-flex scroll-x>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</text>
+      </view>
+    </scroll-view>
+  </view>
 </view>

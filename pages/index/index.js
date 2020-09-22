@@ -1,4 +1,5 @@
 // pages/index/index.js
+import request from '../../utils/request.js';
 Page({
 
   /**
@@ -11,7 +12,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     /*
       1.在哪发
        onLoad
@@ -20,18 +21,22 @@ Page({
       3.往哪发
         去看接口文档
     */
-    wx.request({
-      url:"http://localhost:3000/banner",
-      data:{
-        type:2
-      },
-      success:(res)=>{
-        //请求成功之后,将数据存放到状态data中,实现动态渲染
-        console.log(res.data.banners)
-        this.setData({
-          bannerList:res.data.banners
-        })
-      }
+    // wx.request({
+    //   url:"http://localhost:3000/banner",
+    //   data:{
+    //     type:2
+    //   },
+    //   success:(res)=>{
+    //     //请求成功之后,将数据存放到状态data中,实现动态渲染
+    //     this.setData({
+    //       bannerList:res.data.banners
+    //     })
+    //   }
+    // })
+    let result = await request("http://localhost:3000/banner",{type:2},"GET");
+    console.log('result',result)
+    this.setData({
+      bannerList:result.banners
     })
   },
 

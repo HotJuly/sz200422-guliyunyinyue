@@ -10,6 +10,8 @@ Page({
   },
 
   handleTouchStart(event){
+    //event.touches数组->用于收集当前屏幕上所有的手指信息
+    //event.changedTouches数组->用于收集当前屏幕上所有正在移动的手指信息
     // console.log('handleTouchStart')
     //获取当前第一个手指的Y轴坐标
     this.startY = event.touches[0].clientY;
@@ -38,11 +40,17 @@ Page({
   },
   handleTouchEnd(){
     //当手指开启,让元素回到起始位置
+    //元素回去的过程需要拥有过渡效果
     this.setData({
       moveDistance:0,
       moveTransition:"transform 400ms"
     })
     // console.log('handleTouchEnd')
+  },
+  toLogin(){
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
   },
   /**
    * 生命周期函数--监听页面加载

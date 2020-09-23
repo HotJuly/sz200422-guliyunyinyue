@@ -1,18 +1,35 @@
 // pages/video/video.js
+import request from '../../utils/request.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    navList:[],
+    currentId: null
+  },
+  changeId(event){
+    // console.log('changeId')
+    //标签属性的值一定是字符串类型
+    //自定义属性的值的类型,你传给他什么,他就是什么
+    // console.log(event.currentTarget.dataset.id)
+    // console.log(event.currentTarget.id)
+    this.setData({
+      currentId: event.currentTarget.id*1
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+    let listData = await request('/video/group/list');
+    console.log(listData)
+    this.setData({
+      navList: listData.data.slice(0,14),
+      currentId: listData.data[0].id
+    })
   },
 
   /**

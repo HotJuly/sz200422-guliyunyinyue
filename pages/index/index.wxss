@@ -65,3 +65,51 @@
   -webkit-box-orient:vertical;
   overflow:hidden;
 }
+
+
+.topContainer{
+  padding:0 20rpx;
+}
+
+.topContainer .topSwiper{
+  height:470rpx;
+}
+
+.topContainer .topSwiper .topItem{
+background: #fbfbfb;
+width:96%;
+border-radius:10rpx;
+}
+
+.topContainer .topSwiper .topItem .topTitle{
+  font-size:26rpx;
+  padding-bottom: 20rpx;
+}
+
+.topContainer .topSwiper .topItem .topContent{
+  display:flex;
+  align-items: center;
+  height:100rpx;
+  margin:20rpx 0;
+}
+
+.topContainer .topSwiper .topItem .topContent .topImg{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 10rpx;
+  flex-shrink: 0;
+}
+
+.topContainer .topSwiper .topItem .topContent .topNum{
+  width:100rpx;
+  height:100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  flex-shrink: 0;
+}
+
+.topContainer .topSwiper .topItem .topContent .topName{
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

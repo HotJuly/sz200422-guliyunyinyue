@@ -36,6 +36,7 @@
 
 .recommendContainer .recommendScroll{
   display:flex;
+  height:300rpx;
   padding-top:20rpx;
 }
 

@@ -7,7 +7,8 @@ Page({
    */
   data: {
       bannerList:[],
-      recommendList:[]
+      recommendList:[],
+      topList:[]
   },
 
   /**
@@ -42,19 +43,38 @@ Page({
     //   bannerList:result.banners,
     //   recommendList: recommendData.result
     // })
-    request("http://localhost:3000/banner", { type: 2 }, "GET")
+    request("/banner", { type: 2 }, "GET")
       .then((res)=>{
         this.setData({
           bannerList: res.banners
         })
       })
 
-    request("http://localhost:3000/personalized")
+    request("/personalized")
       .then((res) => {
         this.setData({
           recommendList: res.result
         })
       })
+
+    let arr=[1,5,12,26,28,29];
+    let index=0;
+    let topList=[];
+    while (index<arr.length) {
+      let res = await request("/top/list", { idx: arr[index++] })
+      // .then((res)=>{
+        // console.log(res)
+        let data={
+          name: res.playlist.name,
+          tracks: res.playlist.tracks.slice(0,3)
+        }
+        // console.log(this.data.topList)
+        topList.push(data);
+        this.setData({
+          topList: topList
+        })
+      // })
+    }
   },
 
   /**

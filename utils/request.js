@@ -10,11 +10,11 @@
     提取动态数据:将动态数据由props传入
     谁调用谁传入
 */
-
+import config from './config.js';
 export default function (url, data={}, method="GET"){
   return new Promise(function (resolve, reject) {
     wx.request({
-      url,
+      url: config.mpHost + url,
       data,
       method,
       success: (res) => {

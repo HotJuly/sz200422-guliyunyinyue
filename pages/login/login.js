@@ -68,7 +68,11 @@ Page({
       成功:提示200
     */
     let result = await request('/login/cellphone',{phone,password});
-    // console.log(result);
+    console.log(result.profile);
+    wx.setStorage({
+      key: 'userInfo',
+      data: JSON.stringify(result.profile)
+    })
     wx.showToast({
       title: '登陆成功',
       icon:"success"

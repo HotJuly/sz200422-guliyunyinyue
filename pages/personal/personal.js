@@ -6,7 +6,8 @@ Page({
    */
   data: {
     moveDistance:0,
-    moveTransition:"none"
+    moveTransition:"none",
+    userInfo:{}
   },
 
   handleTouchStart(event){
@@ -48,7 +49,10 @@ Page({
     // console.log('handleTouchEnd')
   },
   toLogin(){
-    wx.navigateTo({
+    // wx.navigateTo({
+    //   url: '/pages/login/login',
+    // })
+    wx.redirectTo({
       url: '/pages/login/login',
     })
   },
@@ -56,7 +60,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //读取Storage中的数据,更新到data中,进行动态渲染
+    let userInfoStr = wx.getStorageSync("userInfo");
+    // console.log(userInfoStr)
+    if (userInfoStr) {
+      this.setData({
+        userInfo: JSON.parse(userInfoStr)
+      })
+    }
   },
 
   /**
@@ -70,7 +81,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // let userInfoStr = wx.getStorageSync("userInfo");
+    // // console.log(userInfoStr)
+    // if (userInfoStr) {
+    //   this.setData({
+    //     userInfo: JSON.parse(userInfoStr)
+    //   })
+    // }
   },
 
   /**

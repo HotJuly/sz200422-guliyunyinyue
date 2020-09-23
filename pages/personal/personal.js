@@ -5,9 +5,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    moveDistance:0,
+    moveTransition:"none"
   },
 
+  handleTouchStart(event){
+    // console.log('handleTouchStart')
+    //获取当前第一个手指的Y轴坐标
+    this.startY = event.touches[0].clientY;
+    //二次下拉时,重置transition状态,防止下拉具有过渡效果
+    this.setData({
+      moveTransition:"none"
+    })
+    // console.log('startY',event.touches[0].clientY)
+  },
+
+  handleTouchMove(event) {
+    // console.log('handleTouchMove')
+    //获取当前第一个手指的Y轴坐标
+    let moveY = event.touches[0].clientY;
+    //通过当前手指位置减去起始位置,得到手指移动距离
+    let moveDistance=Math.floor(moveY-this.startY);
+    //如果手指往上滑动,元素不移动
+    //如果手指往下滑动超过80,元素停在80
+    if (moveDistance<0)return ;
+    if (moveDistance > 80) moveDistance=80;
+    this.setData({
+      moveDistance
+    })
+    // console.log(moveDistance)
+    // console.log('moveY',event.touches[0].clientY)
+  },
+  handleTouchEnd(){
+    //当手指开启,让元素回到起始位置
+    this.setData({
+      moveDistance:0,
+      moveTransition:"transform 400ms"
+    })
+    // console.log('handleTouchEnd')
+  },
   /**
    * 生命周期函数--监听页面加载
    */

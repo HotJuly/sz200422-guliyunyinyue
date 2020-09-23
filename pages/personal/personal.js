@@ -1,4 +1,5 @@
 // pages/personal/personal.js
+import request from '../../utils/request.js';
 Page({
 
   /**
@@ -7,7 +8,8 @@ Page({
   data: {
     moveDistance:0,
     moveTransition:"none",
-    userInfo:{}
+    userInfo:{},
+    playList:[]
   },
 
   handleTouchStart(event){
@@ -59,15 +61,20 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     //读取Storage中的数据,更新到data中,进行动态渲染
     let userInfoStr = wx.getStorageSync("userInfo");
     // console.log(userInfoStr)
-    if (userInfoStr) {
+    if (!this.data.userInfo.nickname && userInfoStr) {
+      //如果Storage中有存储用户的数据,就更新到data中
       this.setData({
         userInfo: JSON.parse(userInfoStr)
       })
     }
+    let playListData = await request('/user/record', { uid: this.data.userInfo.userId, type: 1 })
+    this.setData({
+      playList: playListData.weekData
+    })
   },
 
   /**

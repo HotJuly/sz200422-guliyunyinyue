@@ -57,7 +57,8 @@ Page({
         })
       })
 
-    let arr=[1,5,12,26,28,29];
+    //存放需要请求的排行榜序号
+    let arr=[2,4,6,10,20,22];
     let index=0;
     let topList=[];
     while (index<arr.length) {

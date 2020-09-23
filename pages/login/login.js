@@ -1,11 +1,12 @@
 // pages/login/login.js
+import request from '../../utils/request.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    phone:"123",
+    phone:"17688197776",
     password:"123"
   },
 
@@ -35,6 +36,46 @@ Page({
       password: event.detail.value
     })
     // console.log('handlePassword')
+  },
+
+  async handleLogin(){
+    // console.log('handleLogin')
+    //1.收集数据
+    let {phone,password} =this.data;
+    //2.前端表单验证
+    let phoneReg = new RegExp(/^1[0-9]{10}/);
+    let pwdReg = new RegExp(/[a-zA-Z0-9]{6}/);
+    // console.log(reg.test(phone))
+    if (!phoneReg.test(phone)){
+      wx.showToast({
+        title: '手机号格式不正确',
+        icon:"none"
+      })
+      return;
+    }
+    if (!pwdReg.test(password)) {
+      wx.showToast({
+        title: '密码格式不正确',
+        icon: "none"
+      })
+      return;
+    }
+    //3.后端表单验证
+    /*
+      发送请求
+      手机号错误:提示400,
+      密码错误:提示502
+      成功:提示200
+    */
+    let result = await request('/login/cellphone',{phone,password});
+    // console.log(result);
+    wx.showToast({
+      title: '登陆成功',
+      icon:"success"
+    })
+    wx.switchTab({
+      url: '/pages/personal/personal'
+    })
   },
 
   /**

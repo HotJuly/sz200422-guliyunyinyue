@@ -1,2 +1,102 @@
-<!--pages/video/video.wxml-->
-<text>pages/video/video.wxml</text>
+<view class="videoContainer">
+  <view class="header">
+    <image src="/static/images/video/video.jpg"></image>
+    <input type="text" class="search" placeholder="光辉岁月" placeholder-class="placeholder"></input>
+    <image src="/static/images/logo.png"></image>
+  </view>
+  <scroll-view class="navScroll" enable-flex scroll-x>
+    <view class="navItem active">
+      现场12312312
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+    <view class="navItem">
+      现场
+    </view>
+  </scroll-view>
+</view>

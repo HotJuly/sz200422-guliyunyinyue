@@ -1,1 +1,38 @@
-/* pages/video/video.wxss */
+.videoContainer .header{
+  display:flex;
+  padding-top:10rpx;
+}
+
+.videoContainer .header image{
+  width:60rpx;
+  height:60rpx;
+  /* margin:上右下左 */
+  margin:0 10rpx;
+}
+
+.videoContainer .header .search{
+  flex-grow: 1;
+  height:60rpx;
+  border:1rpx solid #eee;
+}
+
+.videoContainer .header .search .placeholder{
+  text-align: center;
+  color:red;
+  font-size:28rpx;
+}
+
+.videoContainer .navScroll{
+  display:flex;
+  white-space: nowrap;
+}
+
+.videoContainer .navScroll .navItem{
+  height:96rpx;
+  margin:0 20rpx;
+  line-height:96rpx;
+}
+
+.videoContainer .navScroll .navItem.active{
+  border-bottom:1rpx solid red;
+}

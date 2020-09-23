@@ -54,6 +54,7 @@ Page({
     // wx.navigateTo({
     //   url: '/pages/login/login',
     // })
+    if(this.data.userInfo.nickname)return;
     wx.redirectTo({
       url: '/pages/login/login',
     })

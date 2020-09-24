@@ -184,7 +184,26 @@ Page({
       })
     },2000)
   },
-
+  handlePlay(event){
+    // console.log('handlePlay')
+    //当第二个视频播放的时候,停止上一个视频
+    //播放第一个视频时,this.vid没有值,播放第二个视频时,this.vid存储着上一个视频的id
+    // console.log(this.vid)
+    let { id } = event.currentTarget;
+    if (this.vid && this.vid !== id) {
+      let preVideoContext = wx.createVideoContext(this.vid);
+      preVideoContext.pause();
+    }
+    // console.log(id)
+    //覆盖上一次视频的id,存储当前视频id
+    this.vid=id;
+  },
+  //用于测试视频停止api是否好使
+  testAPI(){
+    console.log('testAPI')
+    let videoContext = wx.createVideoContext('01A3989AFDE38CB8561D9BDDCFC8AD88');
+    videoContext.pause();
+  },
   /**
    * 生命周期函数--监听页面加载
    */

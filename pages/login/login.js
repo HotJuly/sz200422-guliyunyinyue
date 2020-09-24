@@ -67,8 +67,8 @@ Page({
       密码错误:提示502
       成功:提示200
     */
-    let result = await request('/login/cellphone',{phone,password});
-    console.log(result.profile);
+    let result = await request('/login/cellphone',{phone,password,isLogin:true});
+    console.log(result);
     wx.setStorage({
       key: 'userInfo',
       data: JSON.stringify(result.profile)

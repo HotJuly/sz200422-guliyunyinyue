@@ -17,7 +17,20 @@ export default function (url, data={}, method="GET"){
       url: config.mpHost + url,
       data,
       method,
+      header:{
+        cookie:JSON.parse(wx.getStorageSync('cookies')||"[]").toString()
+      },
       success: (res) => {
+        //data的isLogin属性如果有值,就说明本次响应是登录接口的响应
+        if(data.isLogin){
+          //将cookies保存至Storage中
+          let cookies=res.cookies;
+          wx.setStorage({
+            key: 'cookies',
+            data: JSON.stringify(cookies)
+          })
+          // console.log('cookies',cookies)
+        }
         resolve(res.data)
         // console.log("res", res)
         //请求成功之后,将数据存放到状态data中,实现动态渲染

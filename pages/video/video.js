@@ -25,11 +25,13 @@ Page({
    */
   onLoad: async function (options) {
     let listData = await request('/video/group/list');
-    console.log(listData)
+    // console.log(listData)
     this.setData({
       navList: listData.data.slice(0,14),
       currentId: listData.data[0].id
     })
+    let videoListData = await request('/video/group', { id: 58100})
+    console.log('videoListData',videoListData)
   },
 
   /**

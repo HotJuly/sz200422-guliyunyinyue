@@ -1,0 +1,136 @@
+.songContainer{
+  display:flex;
+  height:100%;
+  flex-direction: column;
+  align-items: center;
+  background-color:rgba(0,0,0,.5);
+}
+
+.songContainer .keng{
+  width:60rpx;
+  height:60rpx;
+  border-radius: 50%;
+  background-color: white;
+  z-index:99;
+}
+
+.songContainer .needle{
+  position: relative;
+  width:192rpx;
+  height:274rpx;
+  left:58rpx;
+  top:-36rpx;
+  z-index:98;
+  transform:rotateZ(-20deg);
+  transform-origin: 40rpx 0;
+  transition:transform 1s;
+}
+
+.songContainer.playing .needle{
+  transform:rotateZ(0deg);
+}
+
+.songContainer .discContainer{
+  position: relative;
+  top:-180rpx;
+  width:598rpx;
+  height:598rpx;
+  animation: rotateDisc 4s linear infinite;
+  animation-play-state: paused;
+}
+
+.songContainer.playing .discContainer{
+  animation-play-state: running;
+}
+
+@keyframes rotateDisc{
+  /* 
+    from,to 
+    百分比0%,50%,100%
+   */
+   from{
+    transform:rotateZ(0deg);
+   }
+   to{
+    transform:rotateZ(360deg);
+   }
+}
+
+.songContainer .discContainer .disc{
+  position: relative;
+  width:100%;
+  height:100%;
+  z-index:97;
+}
+
+.songContainer .discContainer .discImg{
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  width:370rpx;
+  height:370rpx;
+  z-index:96;
+}
+
+
+
+
+/* musicControl */
+.musicControl {
+  position: absolute;
+  bottom: 40rpx;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1rpx solid #fff;
+}
+
+.musicControl text {
+  width: 20%;
+  text-align: center;
+  font-size: 50rpx;
+  color: #fff;
+  height: 120rpx;
+  line-height: 120rpx;
+}
+.musicControl text.big {
+  font-size: 80rpx;
+}
+
+.audioContainer{
+  position: absolute;
+  bottom:200rpx;
+  display:flex;
+  width:640rpx;
+  height:80rpx;
+  line-height:80rpx;
+}
+
+.audioContainer .barContainer{
+  width:450rpx;
+  height:4rpx;
+  background:rgba(0, 0, 0, 0.4);
+  margin:auto;
+}
+
+.audioContainer .barContainer .audio-current-time{
+  position: relative;
+  width:50%;
+  height:4rpx;
+  background:red;
+}
+
+.audioContainer .barContainer .audio-current-time .audio-time-point{
+  position: absolute;
+  top:-4rpx;
+  right:-6rpx;
+  width:12rpx;
+  height:12rpx;
+  border-radius: 50%;
+  background:white;
+}
+

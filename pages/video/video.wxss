@@ -25,6 +25,7 @@
 .videoContainer .navScroll{
   display:flex;
   white-space: nowrap;
+  height:100rpx;
 }
 
 .videoContainer .navScroll .navItem{
@@ -35,4 +36,75 @@
 
 .videoContainer .navScroll .navItem.active{
   border-bottom:1rpx solid red;
+}
+
+
+.videoList .common {
+  width: 100%;
+  border-radius: 10rpx;
+}
+
+.videoList .videoItem{
+  padding:3%;
+  padding-bottom:0;
+}
+
+
+.videoList{
+  padding-top:40rpx;
+  /* 设置为内缩盒模型,IE怪异盒模型,box-sizing:border-box,就可以少减40rpx */
+  height:calc(100vh - 72rpx - 100rpx - 40rpx);
+}
+
+.videoList .content {
+  font-size: 26rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  max-width: 500rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* footer */
+.footer {
+  border-top: 1rpx solid #eee;
+  padding: 20rpx 0;
+}
+.footer .avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.footer  .nickName {
+  font-size: 26rpx;
+  vertical-align: middle;
+  margin-left: 20rpx;
+}
+
+.footer .comments_praised {
+  float: right;
+}
+.comments_praised .btn {
+  display: inline;
+  padding: 0;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.comments_praised .btn:after {
+  border: none;
+}
+
+.comments_praised .item {
+  margin-left: 50rpx;
+  position: relative;
+}
+
+.comments_praised .item .count {
+  position: absolute;
+  top: -20rpx;
+  font-size: 20rpx;
 }

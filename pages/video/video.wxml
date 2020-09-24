@@ -28,7 +28,14 @@
   bindscrolltolower="scrollToLower"
   >
     <view class="videoItem" wx:for="{{videoList}}" wx:key="vid">
-      <video id="{{item.data.vid}}" class="common" src="{{item.data.urlInfo.url}}" bindplay="handlePlay"></video>
+      <video id="{{item.data.vid}}" 
+      wx:if="{{videoId===item.data.vid}}" 
+      class="common" 
+      src="{{item.data.urlInfo.url}}" 
+      poster="{{item.data.coverUrl}}"
+      ></video>
+      <!-- object-fit="fill"不够完美,对于竖屏视频,不友好 -->
+      <image id="{{item.data.vid}}" wx:else src="{{item.data.coverUrl}}"  class="common" bindtap="changeVideoId"></image>
       <view class="content">{{item.data.title}}</view>
       <view class="footer">
         <image class="avatar" src="{{item.data.creator.avatarUrl}}"></image>

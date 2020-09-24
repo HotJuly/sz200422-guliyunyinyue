@@ -9,7 +9,8 @@ Page({
     navList:[],
     currentId: null,
     videoList:[],
-    trigger:false
+    trigger:false,
+    videoId: null
   },
   async changeId(event){
     // console.log('changeId')
@@ -184,6 +185,7 @@ Page({
       })
     },2000)
   },
+  //用于播放当前视频时候,自动暂停上一个视频
   handlePlay(event){
     // console.log('handlePlay')
     //当第二个视频播放的时候,停止上一个视频
@@ -203,6 +205,16 @@ Page({
     console.log('testAPI')
     let videoContext = wx.createVideoContext('01A3989AFDE38CB8561D9BDDCFC8AD88');
     videoContext.pause();
+  },
+  //用于切换image组件和video组件,并自动播放视频
+  changeVideoId(event){
+    // console.log(event)
+    let {id} =event.currentTarget;
+    this.setData({
+      videoId:id
+    })
+    let videoContext = wx.createVideoContext(id);
+    videoContext.play();
   },
   /**
    * 生命周期函数--监听页面加载
@@ -280,6 +292,7 @@ Page({
     if(from==="button"){
       // 2)通过button按钮触发 -> 分享当前视频的截图以及标题
       // console.log(target)
+      //target内存储着button组件的事件对象
       let { title,imageurl }= target.dataset;
       return {
         title,

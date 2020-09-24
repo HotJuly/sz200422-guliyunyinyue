@@ -6,13 +6,24 @@
     <image src="/static/images/logo.png"></image>
   </view>
   <!-- 导航条区域 -->
-  <scroll-view class="navScroll" enable-flex scroll-x>
-    <view id="{{item.id}}" class="navItem {{currentId===item.id?'active':''}}" bindtap="changeId" data-id="{{item.id}}"  wx:for="{{navList}}" wx:key="id">
+  <scroll-view class="navScroll" 
+  enable-flex 
+  scroll-x 
+  scroll-into-view="video{{currentId}}"
+  scroll-with-animation>
+    <view id="video{{item.id}}" class="navItem {{currentId===item.id?'active':''}}" bindtap="changeId" data-id="{{item.id}}"  wx:for="{{navList}}" wx:key="id">
       {{item.name}}
     </view>
   </scroll-view>
   <!-- 视频列表区域 -->
-  <scroll-view class="videoList" scroll-y>
+  <scroll-view 
+  class="videoList" 
+  scroll-y 
+  refresher-enabled 
+  refresher-triggered="{{trigger}}" 
+  bindrefresherrefresh="refresherRefresh"
+  bindscrolltolower="scrollToLower"
+  >
     <view class="videoItem" wx:for="{{videoList}}" wx:key="vid">
       <video class="common" src="{{item.data.urlInfo.url}}"></video>
       <view class="content">{{item.data.title}}</view>

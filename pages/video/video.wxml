@@ -42,7 +42,7 @@
             <text class="iconfont icon-pinglun1"></text>
             <text class="count">{{item.data.shareCount}}</text>
           </text>
-          <button class="item btn">
+          <button class="item btn" open-type="share" data-title="{{item.data.title}}" data-imageUrl="{{item.data.coverUrl}}">
             <text class="iconfont icon-gengduo"></text>
           </button>
         </view>

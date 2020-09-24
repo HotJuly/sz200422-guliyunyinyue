@@ -269,7 +269,30 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function ({from,target}) {
+    /*区分当前触发回调函数的方式
+      1)通过右上角转发按钮触发->分享整个小程序的效果
+      2)通过button按钮触发->分享当前视频的截图以及标题
+      通过return一个对象,可以自定义转发的内容
+    */
+    // console.log('onShareAppMessage')
+    // console.log(from, target)
+    if(from==="button"){
+      // 2)通过button按钮触发 -> 分享当前视频的截图以及标题
+      // console.log(target)
+      let { title,imageurl }= target.dataset;
+      return {
+        title,
+        path:"/pages/video/video",
+        imageUrl: imageurl
+      }
+    } else if (from === "menu") {
+      // 1)通过右上角转发按钮触发 -> 分享整个小程序的效果
+      return {
+        title:"硅谷云音乐",
+        path:"/pages/index/index",
+        imageUrl:"/static/images/logo.png"
+      }
+    }
   }
 })

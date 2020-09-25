@@ -1,5 +1,6 @@
 // pages/song/song.js
 import request from '../../utils/request.js';
+import PubSub from 'pubsub-js'
 let appInstance = getApp();
 Page({
 
@@ -12,24 +13,82 @@ Page({
     musicUrl:"",
     songId:null
   },
+  //用于响应用户点击播放按钮操作
   async handlePlay(){
     //如果当前已经拥有音频地址,我们就不发送请求
     if (!this.data.musicUrl) {
       //获取音频地址
-      let musicUrlData = await request('/song/url', { id: this.data.songId });
-      // console.log(musicUrlData)
-      this.setData({
-        musicUrl: musicUrlData.data[0].url
-      })
+     await this.getMusicUrl()
     }
-
 
     // console.log('handlePlay')
     //让页面C3效果动起来->页面C3效果进入播放状态
     this.setData({
       isPlaying:!this.data.isPlaying
     })
-
+    this.playAudio();
+  },
+  //用于监听背景音频播放状态
+  addAudioListener(){
+    //监听背景音频播放器的是否进入播放状态
+    this.backgroundAudioManager.onPlay(() => {
+      // console.log('onPlay')
+      //判断当前页面的歌曲是否与我背景音频播放的相同,如果相同才改变他的页面C3效果播放状态
+      if (this.data.songId === appInstance.globalData.audioId) {
+        this.setData({
+          isPlaying: true
+        })
+      }
+      appInstance.globalData.playState = true;
+    })
+    //监听背景音频播放器的是否进入暂停状态
+    this.backgroundAudioManager.onPause(() => {
+      // console.log('onPlay')
+      if (this.data.songId === appInstance.globalData.audioId) {
+        this.setData({
+          isPlaying: false
+        })
+      }
+      appInstance.globalData.playState = false;
+    })
+    //监听背景音频播放器的是否进入停止状态
+    this.backgroundAudioManager.onStop(() => {
+      // console.log('onPlay')
+      if (this.data.songId === appInstance.globalData.audioId) {
+        this.setData({
+          isPlaying: false
+        })
+      }
+      appInstance.globalData.playState = false;
+    })
+  },
+  //用于响应用户点击上一首/下一首按钮操作
+  switchSong(event){
+    // console.log('switchSong')
+    // console.log(event.currentTarget.id)
+    //发布消息,将需要获取歌曲是上一首还是下一首,告知推荐页面
+    PubSub.publish('switchType', event.currentTarget.id);
+  },
+  //用于获取歌曲详细信息
+  async getMusicDetail(){
+    let result = await request('/song/detail', { ids: this.data.songId });
+    let songObj = result.songs[0];
+    this.setData({
+      songObj
+    })
+    wx.setNavigationBarTitle({
+      title: songObj.name
+    })
+  },
+  //用于获取音频地址
+  async getMusicUrl(){
+    let musicUrlData = await request('/song/url', { id: this.data.songId });
+    // console.log(musicUrlData)
+    this.setData({
+      musicUrl: musicUrlData.data[0].url
+    })
+  },
+  playAudio(){
     //播放音频
     //获取背景音频播放器
     // let backgroundAudioManager = wx.getBackgroundAudioManager();
@@ -42,37 +101,11 @@ Page({
       //在app实例对象上,存储当前背景音频正在播放的歌曲状态以及id
       appInstance.globalData.playState = true;
       appInstance.globalData.audioId = this.data.songId;
-    }else{
+    } else {
       //通过背景音频播放器实例上的pause方法,暂停背景音频播放
       this.backgroundAudioManager.pause();
       appInstance.globalData.playState = false;
     }
-  },
-  addAudioListener(){
-    //监听背景音频播放器的是否进入播放状态
-    this.backgroundAudioManager.onPlay(() => {
-      // console.log('onPlay')
-      this.setData({
-        isPlaying: true
-      })
-      appInstance.globalData.playState = true;
-    })
-    //监听背景音频播放器的是否进入暂停状态
-    this.backgroundAudioManager.onPause(() => {
-      // console.log('onPlay')
-      this.setData({
-        isPlaying: false
-      })
-      appInstance.globalData.playState = false;
-    })
-    //监听背景音频播放器的是否进入停止状态
-    this.backgroundAudioManager.onStop(() => {
-      // console.log('onPlay')
-      this.setData({
-        isPlaying: false
-      })
-      appInstance.globalData.playState = false;
-    })
   },
 
   /**
@@ -88,17 +121,13 @@ Page({
     //路由传参可以从options中获取
     // console.log(options)
     let { songId } = options;
-    // console.log(song)
-    // console.log(JSON.parse(song))
-    let result = await request('/song/detail', { ids: songId});
-    let songObj = result.songs[0];
     this.setData({
-      songObj,
       songId
     })
-    wx.setNavigationBarTitle({
-      title:songObj.name
-    })
+    // console.log(song)
+    // console.log(JSON.parse(song))
+    //async函数返回值是promise对象,他默认是pending状态,只有当整个函数执行结束,该promise状态才会从pending变成完成
+    await this.getMusicDetail();
 
     //当用户进入song页面的时候,如果背景音频正在播放的是当前的这首歌,页面C3效果自动进入播放状态
     let {playState,audioId} =appInstance.globalData;
@@ -112,6 +141,23 @@ Page({
     this.backgroundAudioManager = wx.getBackgroundAudioManager();
     this.addAudioListener();
 
+    PubSub.subscribe('getMusicId', async (msg, songId)=>{
+      //获取到对应歌曲id,
+      // 1.请求详细数据,请求音频地址
+      // 2.播放对应歌曲
+      // console.log(msg, data)
+      this.setData({
+        songId
+      })
+      // 1.请求详细数据,请求音频地址
+      this.getMusicDetail();
+      await this.getMusicUrl();
+      // 2.播放对应歌曲
+      this.setData({
+        isPlaying:true
+      })
+      this.playAudio();
+    })
   },
 
   /**

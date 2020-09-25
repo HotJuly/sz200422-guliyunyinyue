@@ -1,0 +1,23 @@
+{
+  "name": "guliyunyinyue",
+  "version": "1.0.0",
+  "description": "1)观察项目<br/>\r   2)创建新项目，从0写起<br/>\r   3)做好准备工作，引入静态资源<br/>\r   4)了解并使用swiper组件和swiper-item组件<br/>",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HotJuly/sz200422-guliyunyinyue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HotJuly/sz200422-guliyunyinyue/issues"
+  },
+  "homepage": "https://github.com/HotJuly/sz200422-guliyunyinyue#readme",
+  "dependencies": {
+    "pubsub-js": "^1.9.0"
+  }
+}

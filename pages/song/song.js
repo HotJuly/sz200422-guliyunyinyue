@@ -1,5 +1,6 @@
 // pages/song/song.js
 import request from '../../utils/request.js';
+let appInstance = getApp();
 Page({
 
   /**
@@ -38,9 +39,13 @@ Page({
       //给背景音频播放器实例设置src和title,就能实现音频播放
       backgroundAudioManager.src = this.data.musicUrl;
       backgroundAudioManager.title = this.data.songObj.name;
+      //在app实例对象上,存储当前背景音频正在播放的歌曲状态以及id
+      appInstance.globalData.playState = true;
+      appInstance.globalData.audioId = this.data.songId;
     }else{
       //通过背景音频播放器实例上的pause方法,暂停背景音频播放
       backgroundAudioManager.pause();
+      appInstance.globalData.playState = false;
     }
   },
 
@@ -48,6 +53,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    //getApp()可以获取到全局唯一的app实例,可以在上面任意添加属性,修改属性值
+    // console.log('appInstance', appInstance)
+    // console.log('appInstance',appInstance.globalData.msg)
+    // appInstance.globalData.msg = "我是修改之后的数据"
+    // console.log('appInstance', appInstance.globalData.msg)
+
     //路由传参可以从options中获取
     // console.log(options)
     let { songId } = options;
@@ -62,6 +73,14 @@ Page({
     wx.setNavigationBarTitle({
       title:songObj.name
     })
+
+    //当用户进入song页面的时候,如果背景音频正在播放的是当前的这首歌,页面C3效果自动进入播放状态
+    let {playState,audioId} =appInstance.globalData;
+    if (playState&&audioId===songId){
+      this.setData({
+        isPlaying:true
+      })
+    }
 
 
   },

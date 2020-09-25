@@ -34,6 +34,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    msg:"我是globalData中的初始数据"
   }
 })

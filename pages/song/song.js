@@ -32,21 +32,47 @@ Page({
 
     //播放音频
     //获取背景音频播放器
-    let backgroundAudioManager = wx.getBackgroundAudioManager();
+    // let backgroundAudioManager = wx.getBackgroundAudioManager();
     //this.setData是同步修改data中的数据,所以该处可以直接读取
     // console.log(this.data.isPlaying) 
     if (this.data.isPlaying) {
       //给背景音频播放器实例设置src和title,就能实现音频播放
-      backgroundAudioManager.src = this.data.musicUrl;
-      backgroundAudioManager.title = this.data.songObj.name;
+      this.backgroundAudioManager.src = this.data.musicUrl;
+      this.backgroundAudioManager.title = this.data.songObj.name;
       //在app实例对象上,存储当前背景音频正在播放的歌曲状态以及id
       appInstance.globalData.playState = true;
       appInstance.globalData.audioId = this.data.songId;
     }else{
       //通过背景音频播放器实例上的pause方法,暂停背景音频播放
-      backgroundAudioManager.pause();
+      this.backgroundAudioManager.pause();
       appInstance.globalData.playState = false;
     }
+  },
+  addAudioListener(){
+    //监听背景音频播放器的是否进入播放状态
+    this.backgroundAudioManager.onPlay(() => {
+      // console.log('onPlay')
+      this.setData({
+        isPlaying: true
+      })
+      appInstance.globalData.playState = true;
+    })
+    //监听背景音频播放器的是否进入暂停状态
+    this.backgroundAudioManager.onPause(() => {
+      // console.log('onPlay')
+      this.setData({
+        isPlaying: false
+      })
+      appInstance.globalData.playState = false;
+    })
+    //监听背景音频播放器的是否进入停止状态
+    this.backgroundAudioManager.onStop(() => {
+      // console.log('onPlay')
+      this.setData({
+        isPlaying: false
+      })
+      appInstance.globalData.playState = false;
+    })
   },
 
   /**
@@ -82,6 +108,9 @@ Page({
       })
     }
 
+    //绑定背景音频播放器相关监听
+    this.backgroundAudioManager = wx.getBackgroundAudioManager();
+    this.addAudioListener();
 
   },
 

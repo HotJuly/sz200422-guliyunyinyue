@@ -35,7 +35,7 @@
   top:-180rpx;
   width:598rpx;
   height:598rpx;
-  animation: rotateDisc 4s linear infinite;
+  animation: rotateDisc 4s linear infinite 1s; 
   animation-play-state: paused;
 }
 

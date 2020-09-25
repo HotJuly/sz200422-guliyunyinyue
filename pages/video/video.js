@@ -220,15 +220,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    let listData = await request('/video/group/list');
-    // console.log(listData)
-    this.setData({
-      navList: listData.data.slice(0,14),
-      currentId: listData.data[0].id
-    })
+    // let listData = await request('/video/group/list');
+    // // console.log(listData)
+    // this.setData({
+    //   navList: listData.data.slice(0,14),
+    //   currentId: listData.data[0].id
+    // })
 
-    //发送请求获取videoList数据
-    this.getVideoListData();
+    // //发送请求获取videoList数据
+    // this.getVideoListData();
     // let videoListData = await request('/video/group', { id: 58100})
     // // console.log('videoListData',videoListData)
     // this.setData({
@@ -246,8 +246,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
+    let listData = await request('/video/group/list');
+    // console.log(listData)
+    this.setData({
+      navList: listData.data.slice(0, 14),
+      currentId: listData.data[0].id
+    })
 
+    //发送请求获取videoList数据
+    this.getVideoListData();
   },
 
   /**

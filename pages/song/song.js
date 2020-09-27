@@ -1,6 +1,7 @@
 // pages/song/song.js
 import request from '../../utils/request.js';
 import PubSub from 'pubsub-js'
+import moment from 'moment'
 let appInstance = getApp();
 Page({
 
@@ -11,7 +12,10 @@ Page({
     isPlaying:false,
     songObj:{},
     musicUrl:"",
-    songId:null
+    songId:null,
+    currentTime:"00:00",
+    durationTime:"--:--",
+    currentWidth:0
   },
   //用于响应用户点击播放按钮操作
   async handlePlay(){
@@ -20,6 +24,14 @@ Page({
       //获取音频地址
      await this.getMusicUrl()
     }
+
+    let currentTime;
+    // setInterval(()=>{
+    //   currentTime = this.backgroundAudioManager.currentTime;
+    //   this.setData({
+    //     currentTime
+    //   })
+    // },200)
 
     // console.log('handlePlay')
     //让页面C3效果动起来->页面C3效果进入播放状态
@@ -61,6 +73,16 @@ Page({
       }
       appInstance.globalData.playState = false;
     })
+    //监听背景音频播放器的是否进入停止状态
+    this.backgroundAudioManager.onTimeUpdate(() => {
+      // console.log('onTimeUpdate')
+      let currentTime = this.backgroundAudioManager.currentTime;
+      let durationTime = this.backgroundAudioManager.duration;
+      this.setData({
+        currentTime: moment(currentTime*1000).format("mm:ss"),
+        currentWidth: currentTime / durationTime * 100
+      })
+    })
   },
   //用于响应用户点击上一首/下一首按钮操作
   switchSong(event){
@@ -74,7 +96,8 @@ Page({
     let result = await request('/song/detail', { ids: this.data.songId });
     let songObj = result.songs[0];
     this.setData({
-      songObj
+      songObj,
+      durationTime: moment(songObj.dt).format("mm:ss")
     })
     wx.setNavigationBarTitle({
       title: songObj.name
@@ -98,6 +121,7 @@ Page({
       //给背景音频播放器实例设置src和title,就能实现音频播放
       this.backgroundAudioManager.src = this.data.musicUrl;
       this.backgroundAudioManager.title = this.data.songObj.name;
+      // this.backgroundAudioManager.startTime = 220;
       //在app实例对象上,存储当前背景音频正在播放的歌曲状态以及id
       appInstance.globalData.playState = true;
       appInstance.globalData.audioId = this.data.songId;
@@ -120,7 +144,8 @@ Page({
 
     //路由传参可以从options中获取
     // console.log(options)
-    let { songId } = options;
+    // let { songId } = options;
+    let songId ="1332489492";
     this.setData({
       songId
     })

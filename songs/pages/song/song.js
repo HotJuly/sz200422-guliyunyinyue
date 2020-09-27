@@ -1,5 +1,5 @@
 // pages/song/song.js
-import request from '../../utils/request.js';
+import request from '../../../utils/request.js';
 import PubSub from 'pubsub-js'
 import moment from 'moment'
 let appInstance = getApp();

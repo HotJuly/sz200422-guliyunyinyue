@@ -1,3 +1,7 @@
+@import "../../static/iconfont/iconfont.wxss";
+page{
+  height:100%;
+}
 .songContainer{
   display:flex;
   height:100%;

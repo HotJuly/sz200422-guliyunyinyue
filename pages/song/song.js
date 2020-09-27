@@ -88,6 +88,11 @@ Page({
         currentWidth: currentTime / durationTime * 100
       })
     })
+    //监听背景音频播当前歌曲是否播放结束
+    this.backgroundAudioManager.onEnded(() => {
+      // console.log('onEnded')
+      PubSub.publish('switchType', "next");
+    })
   },
   //用于响应用户点击上一首/下一首按钮操作
   switchSong(event){
@@ -126,7 +131,7 @@ Page({
       //给背景音频播放器实例设置src和title,就能实现音频播放
       this.backgroundAudioManager.src = this.data.musicUrl;
       this.backgroundAudioManager.title = this.data.songObj.name;
-      // this.backgroundAudioManager.startTime = 220;
+      // this.backgroundAudioManager.startTime = 225;
       //在app实例对象上,存储当前背景音频正在播放的歌曲状态以及id
       appInstance.globalData.playState = true;
       appInstance.globalData.audioId = this.data.songId;
@@ -149,8 +154,8 @@ Page({
 
     //路由传参可以从options中获取
     // console.log(options)
-    // let { songId } = options;
-    let songId ="1332489492";
+    let { songId } = options;
+    // let songId ="1332489492";
     this.setData({
       songId
     })

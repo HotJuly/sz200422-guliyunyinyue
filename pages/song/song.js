@@ -13,9 +13,12 @@ Page({
     songObj:{},
     musicUrl:"",
     songId:null,
-    currentTime:"00:00",
-    durationTime:"--:--",
+    currentTime:0,
+    durationTime:0,
     currentWidth:0
+  },
+  getValue(){
+    return 2
   },
   //用于响应用户点击播放按钮操作
   async handlePlay(){
@@ -73,13 +76,15 @@ Page({
       }
       appInstance.globalData.playState = false;
     })
-    //监听背景音频播放器的是否进入停止状态
+    //监听背景音频播放器的进度是否处于更新状态
     this.backgroundAudioManager.onTimeUpdate(() => {
       // console.log('onTimeUpdate')
       let currentTime = this.backgroundAudioManager.currentTime;
       let durationTime = this.backgroundAudioManager.duration;
       this.setData({
-        currentTime: moment(currentTime*1000).format("mm:ss"),
+        //使用moment格式化时间
+        // currentTime: moment(currentTime * 1000).format("mm:ss"),
+        currentTime,
         currentWidth: currentTime / durationTime * 100
       })
     })
@@ -97,7 +102,7 @@ Page({
     let songObj = result.songs[0];
     this.setData({
       songObj,
-      durationTime: moment(songObj.dt).format("mm:ss")
+      durationTime: songObj.dt
     })
     wx.setNavigationBarTitle({
       title: songObj.name

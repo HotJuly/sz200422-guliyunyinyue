@@ -1,3 +1,4 @@
+<wxs src="./myFilter.wxs" module="filter" />
 <view class="songContainer {{isPlaying?'playing':''}}">
   <text class="name">{{songObj.ar[0].name}}</text>
   <view class="keng"></view>
@@ -9,13 +10,13 @@
 
   <!-- 进度条区域 -->
   <view class="audioContainer">
-    <text class="currentTime">{{currentTime}}</text>
+    <text class="currentTime">{{filter.timeFilter(currentTime,'s')}}</text>
     <view class="barContainer">
       <view class="currentBar" style="width:{{currentWidth}}%">
         <view class="point"></view>
       </view>
     </view>
-    <text class="durationTime">{{durationTime}}</text>
+    <text class="durationTime">{{filter.timeFilter(durationTime,'ms')}}</text>
   </view>
 
   
